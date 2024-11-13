@@ -40,28 +40,42 @@ const app = express(); //Creating a new express js application
 // }
 // ]);
 
-const  {adminAuth, userAuth } = require("./middlewares/auth")
-//Handle middleware for all GET, POST, ..requests.
-app.use("/admin", adminAuth);
-app.use("/user", userAuth);
+// const  {adminAuth, userAuth } = require("./middlewares/auth")
+// //Handle middleware for all GET, POST, ..requests.
+// app.use("/admin", adminAuth);
+// app.use("/user", userAuth);
 
 
-app.get("/user", (req, res) =>{
-    res.send("User data sent")
-    });
+// app.get("/user", (req, res) =>{
+//     res.send("User data sent")
+//     });
 
 
-app.get("/admin/getAlldata", (req, res) =>{
-//Logic of fetching all data
-// Logic of Checking if the request is authenticated
-res.send("All data sent")
-});
+// app.get("/admin/getAlldata", (req, res) =>{
+// //Logic of fetching all data
+// // Logic of Checking if the request is authenticated
+// res.send("All data sent")
+// });
 
-app.get("/admin/deleteUser", (req, res) =>{
+app.get("/getUserdata", (req, res) =>{
+    try{
+        throw new Error("gshhhddj");
+        res.send("User data sent");
+    }
+    catch (err) {
+     res.status(500).send("Some error occured")
+    }
     //Logic of fetching all data
-    res.send("Deleted the User")
+    throw new Error("gshhhddj");
+    res.send("User data sent");
  });
 
+app.use("/", (err, req, res, next) =>{
+    if (err) {
+        // Log your error
+        res.status(500).send("something went wrong");
+    }
+}); 
 
 app.listen(3000, ()=> {
     console.log("Server is successfully listening on port 3000.....")
